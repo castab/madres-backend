@@ -1,4 +1,4 @@
-package madres
+package madres.rest
 
 import com.github.michaelbull.result.fold
 import madres.inquiry.Inquiry
@@ -16,6 +16,16 @@ import java.util.UUID
 class RestController(
     private val inquiryRepository: InquiryRepository,
 ) {
+    @GetMapping("/save")
+    fun save(): ResponseEntity<Unit> {
+        val data = Inquiry.Data(TestNames.randomFullName())
+        return inquiryRepository.addNewInquiry(data, ZoneId.of("America/Los_Angeles"))
+            .fold(
+                success = { ResponseEntity.ok().build() },
+                failure = { ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build() }
+            )
+    }
+
     @GetMapping("/inquiry/{id}")
     fun getInquiry(@PathVariable id: UUID): ResponseEntity<Inquiry.Existing?> {
         return inquiryRepository.getExistingInquiryById(id)

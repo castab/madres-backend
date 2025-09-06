@@ -3,6 +3,7 @@ server.compression.enabled: true
 madres:
   encryptionKey: ${ENCRYPTION_KEY}
   emailApiKey: ${EMAIL_API_KEY}
+  backendApiKey: ${BACKEND_API_KEY}
 
 datasource:
   jdbcUrl: jdbc:postgresql://${PGHOST}:${PGPORT}/${PGDATABASE}

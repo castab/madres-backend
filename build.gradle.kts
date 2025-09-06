@@ -7,7 +7,6 @@ plugins {
 }
 
 group = "madres"
-version = "0.0.1-SNAPSHOT"
 
 java {
 	toolchain {

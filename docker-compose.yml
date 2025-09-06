@@ -1,0 +1,18 @@
+services:
+  db:
+    image: postgres:17
+    container_name: madres_postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: inquiry
+      POSTGRES_USER: inquiry_user
+      POSTGRES_PASSWORD: secret
+    ports:
+      - "5432:5432"
+    tmpfs:
+      - /var/lib/postgresql/data     # In-memory DB storage (ephemeral)
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U inquiry_user -d inquiry" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5

@@ -21,7 +21,7 @@ class RestController(
         val data = Inquiry.Data(TestNames.randomFullName())
         return inquiryRepository.addNewInquiry(data, ZoneId.of("America/Los_Angeles"))
             .fold(
-                success = { ResponseEntity.ok().build() },
+                success = { ResponseEntity.status(HttpStatus.ACCEPTED).build() },
                 failure = { ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build() }
             )
     }

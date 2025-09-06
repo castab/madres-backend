@@ -17,6 +17,12 @@ class ApiKeyFilter(
         response: HttpServletResponse,
         filterChain: FilterChain
     ) {
+        // Skip check for health endpoint
+        if (request.requestURI.startsWith("/actuator/health")) {
+            filterChain.doFilter(request, response)
+            return
+        }
+
         val header = request.getHeader("Authorization")
         if (header == null || !header.startsWith("Bearer ") || header.removePrefix("Bearer ") != backendApiKey) {
             response.status = HttpServletResponse.SC_UNAUTHORIZED

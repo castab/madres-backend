@@ -1,0 +1,18 @@
+server.compression.enabled: true
+
+madres:
+  encryptionKey: ${ENCRYPTION_KEY}
+  emailApiKey: ${EMAIL_API_KEY}
+
+datasource:
+  jdbcUrl: jdbc:postgresql://${PGHOST}:${PGPORT}/${PGDATABASE}
+  username: ${PGUSER}
+  password: ${PGPASSWORD}
+
+workers:
+  confirmation:
+    cron: "*/2 * * * * *"
+    zone: America/Los_Angeles
+  inquiry:
+    cron: "0 0 9,13,17 * * *"
+    zone: America/Los_Angeles

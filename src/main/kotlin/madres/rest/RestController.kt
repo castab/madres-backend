@@ -8,16 +8,18 @@ import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
+import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
 import java.time.ZoneId
 import java.util.UUID
 
 @RestController
+@RequestMapping("/inquiries")
 class RestController(
     private val inquiryRepository: InquiryRepository,
 ) {
-    @GetMapping("/save")
-    fun save(): ResponseEntity<Unit> {
+    @GetMapping("/test")
+    fun test(): ResponseEntity<Unit> {
         val data = Inquiry.Data(TestNames.randomFullName())
         return inquiryRepository.addNewInquiry(data, ZoneId.of("America/Los_Angeles"))
             .fold(
@@ -26,7 +28,7 @@ class RestController(
             )
     }
 
-    @GetMapping("/inquiry/{id}")
+    @GetMapping("/{id}")
     fun getInquiry(@PathVariable id: UUID): ResponseEntity<Inquiry.Existing?> {
         return inquiryRepository.getExistingInquiryById(id)
             .fold(
